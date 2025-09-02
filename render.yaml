@@ -1,0 +1,29 @@
+services:
+  - type: web
+    name: faenamiento-app
+    env: docker
+    plan: free
+    region: oregon
+    autoDeploy: true
+    envVars:
+      - key: APP_KEY
+        sync: false        # la pones luego en el panel como secreto
+      - key: DB_CONNECTION
+        value: pgsql
+      - key: DATABASE_URL
+        fromDatabase:
+          name: faenamiento-db
+          property: connectionStringInternal
+      - key: APP_ENV
+        value: production
+      - key: APP_URL
+        value: https://tu-app.onrender.com
+      - key: ASSET_URL
+        value: https://tu-app.onrender.com
+      - key: LOG_CHANNEL
+        value: stderr
+
+databases:
+  - name: faenamiento-db
+    plan: free
+    region: oregon
